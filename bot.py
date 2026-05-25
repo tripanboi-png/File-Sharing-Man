@@ -22,16 +22,15 @@ from config import (
 
 class Bot(Client):
     def __init__(self):
-       super().__init__(
-    "Bot",
-    api_hash=API_HASH,
-    api_id=APP_ID,
-    plugins={"root": "plugins"},
-    workers=TG_BOT_WORKERS,
-    bot_token=TG_BOT_TOKEN,
-)
+        super().__init__(
+            "Bot",
+            api_hash=API_HASH,
+            api_id=APP_ID,
+            plugins={"root": "plugins"},
+            workers=TG_BOT_WORKERS,
+            bot_token=TG_BOT_TOKEN,
+        )
         self.LOGGER = LOGGER
-
     async def start(self):
         try:
             await super().start()
