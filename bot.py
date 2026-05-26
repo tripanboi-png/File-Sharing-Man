@@ -9,6 +9,7 @@ from pyrogram import Client
 from config import (
     API_HASH,
     APP_ID,
+    CHANNEL_ID,
     FORCE_SUB_CHANNEL,
     FORCE_SUB_GROUP,
     LOGGER,
@@ -48,6 +49,7 @@ class Bot(Client):
             self.LOGGER(__name__).warning(a)
             sys.exit()
 
+        # FORCE SUB CHANNEL
         if FORCE_SUB_CHANNEL:
             try:
                 info = await self.get_chat(FORCE_SUB_CHANNEL)
@@ -67,6 +69,7 @@ class Bot(Client):
             except Exception as a:
                 self.LOGGER(__name__).warning(a)
 
+        # FORCE SUB GROUP
         if FORCE_SUB_GROUP:
             try:
                 info = await self.get_chat(FORCE_SUB_GROUP)
@@ -86,6 +89,26 @@ class Bot(Client):
             except Exception as a:
                 self.LOGGER(__name__).warning(a)
 
+        # DATABASE CHANNEL
+        try:
+            db_channel = await self.get_chat(CHANNEL_ID)
+
+            self.db_channel = db_channel
+
+            test = await self.send_message(
+                chat_id=db_channel.id,
+                text="Test Message",
+                disable_notification=True
+            )
+
+            await test.delete()
+
+            self.LOGGER(__name__).info(
+                f"CHANNEL_ID Database detected!\n┌ Title: {db_channel.title}\n└ Chat ID: {db_channel.id}\n——"
+            )
+
+        except Exception as e:
+            self.LOGGER(__name__).warning(e)
 
         self.LOGGER(__name__).info(
             f"[🔥 BERHASIL DIAKTIFKAN! 🔥]\n\nBOT Dibuat oleh @{OWNER}"
