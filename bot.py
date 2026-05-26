@@ -86,7 +86,6 @@ class Bot(Client):
             except Exception as a:
                 self.LOGGER(__name__).warning(a)
 
-        self.set_parse_mode("html")
 
         self.LOGGER(__name__).info(
             f"[🔥 BERHASIL DIAKTIFKAN! 🔥]\n\nBOT Dibuat oleh @{OWNER}"
